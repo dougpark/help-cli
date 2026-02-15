@@ -1,7 +1,5 @@
-
 ## README.md
 
-````markdown
 # Help-CLI 🚀
 
 A high-performance, cross-platform CLI tool built in **Go** to manage and document my personal home-lab scripts and workflows.
@@ -37,7 +35,6 @@ Born out of a love for the "80s-style" binary runtime, this tool provides a cent
    go mod init help-cli
    go mod tidy
    ```
-````
 
 ### Building
 
@@ -91,5 +88,3 @@ var helpRegistry = []HelpItem{
 ## 🔒 License
 
 Custom / Personal. Built for the Home Lab.
-
-
