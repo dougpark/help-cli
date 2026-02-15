@@ -1,6 +1,3 @@
-This README is designed to match your "Old School" aesthetic—clean, functional, and focused on the efficiency of a single binary runtime. It explains the project's purpose, how to use the cross-platform build system, and how the data-driven architecture works.
-
----
 
 ## README.md
 
@@ -95,14 +92,4 @@ var helpRegistry = []HelpItem{
 
 Custom / Personal. Built for the Home Lab.
 
-```
 
----
-
-### Tips for your GitHub Repo:
-1.  **The `.gitignore`:** Ensure the `.gitignore` we created earlier is in the root so your `dist/` binaries don't end up on GitHub.
-2.  **Go Modules:** Before you push to GitHub, make sure you've run `go mod init <your-github-url>/help-cli` so the imports work for anyone else (or your other machines) pulling the code.
-
-**Would you like me to help you set up a GitHub Action so that every time you push code, GitHub automatically builds these binaries for you and attaches them to a "Release"?**
-
-```
