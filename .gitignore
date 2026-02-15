@@ -1,0 +1,20 @@
+# --- Binaries & Build Outputs ---
+# We ignore the dist folder because we want to build fresh binaries every time
+dist/
+bin/
+*.exe
+*.wasm
+
+# --- macOS Specific ---
+# These are the hidden files macOS creates to store folder metadata
+.DS_Store
+
+# --- Go Specific ---
+# If you use a tool to manage environment variables (like .env files)
+.env
+# Test coverage files
+*.out
+
+# --- Dependency Folders ---
+# Only ignore vendor/ if you aren't using Go Modules (rare in 2026)
+# vendor/
