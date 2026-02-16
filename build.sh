@@ -9,10 +9,15 @@ APP_NAME="help"
 OUT_DIR="./dist"
 PROD_BIN="$HOME/bin"
 
-# Get current date for the binary
+# 1. Get Build Metadata
 CURRENT_DATE=$(date +"%Y-%m-%d %H:%M:%S")
-# Linker flags: -s -w reduces binary size, -X injects the date
-LDFLAGS="-s -w -X 'main.buildDate=$CURRENT_DATE'"
+
+# Get the short 7-character Git hash (if in a git repo)
+GIT_HASH=$(git rev-parse --short HEAD 2>/dev/null || echo "not-git")
+
+# 2. Linker flags
+# We add a second -X flag to inject the gitHash into your Go code
+LDFLAGS="-s -w -X 'main.buildDate=$CURRENT_DATE' -X 'main.gitHash=$GIT_HASH'"
 
 # Parse flags
 DEPLOY_PROD=false
@@ -23,21 +28,24 @@ while getopts "p" opt; do
   esac
 done
 
-echo "Building version dated: $CURRENT_DATE"
+echo "Building version: $GIT_HASH ($CURRENT_DATE)"
 
-# 1. Clean up
+# 3. Clean up
 rm -rf $OUT_DIR
 mkdir -p $OUT_DIR
 
-# 2. Build for macOS (ARM64)
+# 4. Build for macOS (ARM64)
+# Note: We include the OpenSSL paths for your M3 build
 echo "Building macOS..."
+CGO_CPPFLAGS="-I/opt/homebrew/opt/openssl@3/include" \
+CGO_LDFLAGS="-L/opt/homebrew/opt/openssl@3/lib" \
 go build -ldflags "$LDFLAGS" -o $OUT_DIR/$APP_NAME ./$SOURCE_NAME
 
-# 3. Build for Linux Server (AMD64)
+# 5. Build for Linux Server (AMD64)
 echo "Building Linux..."
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "$LDFLAGS" -o $OUT_DIR/$APP_NAME-linux ./$SOURCE_NAME
 
-# 4. Build for Raspberry Pi (ARM64)
+# 6. Build for Raspberry Pi (ARM64)
 echo "Building Pi..."
 CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags "$LDFLAGS" -o $OUT_DIR/$APP_NAME-pi ./$SOURCE_NAME
 

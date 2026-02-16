@@ -10,7 +10,10 @@ import (
 )
 
 // This variable is populated by build.sh at compile time
-var buildDate = "Unknown"
+var (
+    buildDate string = "Unknown" // Default value, will be overridden by build.sh
+    gitHash   string = "unknown" // Default value, will be overridden by build.sh
+)
 
 // Global UI Styles
 var (
@@ -40,7 +43,7 @@ func main() {
 	// 1. Version Check
     if len(os.Args) > 1 && (os.Args[1] == "-v" || os.Args[1] == "--version" || os.Args[1] == "version") {
         fmt.Printf("Help Tool v1.0\n")
-        fmt.Printf("Build Date: %s\n", header(buildDate))
+        fmt.Printf("Version: %s (%s)\n", gitHash, buildDate)
         return
     }
 
@@ -85,9 +88,11 @@ func main() {
 		fmt.Fprintf(w, "  %s\t%s\n", cmdCol(item.Command), dim(item.Details))
 	}
 
+	w.Flush() // Ensure all output is printed before the footer
+
 	// Add a footer if showing all scripts
     if filter == "" {
-        fmt.Fprintln(w, dim("\nBinary build date: "+buildDate))
+        fmt.Printf("\nVersion: %s (%s)\n", gitHash, buildDate)
     }
     w.Flush()
 }
