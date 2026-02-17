@@ -31,11 +31,11 @@ type HelpItem struct {
 
 // 2. Create the data store (the "Source of Truth")
 var helpRegistry = []HelpItem{
-	{"general", "dnsreset", "When websites are not loading in browser"},
-	{"docker", "ps-all", "List all containers including stopped ones"},
-	{"go", "build-macos", "go build -o myapp help.go"},
-	{"go", "build-linux", "GOOS=linux GOARCH=amd64 go build -o myapp-linux help.go"},
-	{"go", "build-pi", "GOOS=linux GOARCH=arm64 go build -o myapp-pi64 help.go"},
+	{"general", "dnsreset", "When websites are not loading in MacOS browser"},
+	{"docker", "doccker ps", "List running containers, -a for all"},
+	{"go", "go build -o help help.go", "build for macos"},
+	{"go", "GOOS=linux GOARCH=amd64 go build -o help-linux help.go", "build for linux"},
+	{"go", "GOOS=linux GOARCH=arm64 go build -o help-pi64 help.go", "build for pi"},
 }
 
 func main() {

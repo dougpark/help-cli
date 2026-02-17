@@ -1,20 +1,96 @@
 # --- Binaries & Build Outputs ---
-# We ignore the dist folder because we want to build fresh binaries every time
 dist/
 bin/
 *.exe
+*.exe~
+*.dll
+*.so
+*.dylib
 *.wasm
+# Go build cache
+core
 
-# --- macOS Specific ---
-# These are the hidden files macOS creates to store folder metadata
-.DS_Store
+# --- SQLite & Data ---
+# We never commit the actual database or its write-ahead logs
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-shm
+*.db-wal
 
 # --- Go Specific ---
-# If you use a tool to manage environment variables (like .env files)
-.env
-# Test coverage files
+# Tooling and coverage
 *.out
+*.test
+*.prof
 
-# --- Dependency Folders ---
-# Only ignore vendor/ if you aren't using Go Modules (rare in 2026)
-# vendor/
+# --- Python (Flask/General) ---
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+.env
+.flaskenv
+# Local linting/type checking
+.mypy_cache/
+.pytest_cache/
+
+# --- Frontend (Node/JS) ---
+# Even for vanilla JS, IDEs/linters often create these
+node_modules/
+.npm
+npm-debug.log*
+
+# --- OS Specific (macOS & Linux) ---
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+# Thumbs.db is relevant if you view Synology shares via Windows
+Thumbs.db
+ehthumbs.db
+
+# --- IDE & Tailscale/Network ---
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+*.swp
+*~
+.netrc
+
+# --- Secrets & Credentials ---
+# General environment variables
+.env
+.env.local
+.env.*.local
+*.env
+# Personal credentials
+.netrc
+secrets.json
+# SSH and keys
+*.pem
+*.key
+*.pub
+# Cloud/Tooling configs that may contain tokens
+.terraform/
+.aws/
+.gcloud/
+.vault/
+
+# --- Infrastructure & Containers ---
+# Docker Compose local overrides
+docker-compose.override.yml
+# Synology metadata (if you mount via NFS/SMB)
+@eaDir/
+# Tailscale specific state (if running in user mode)
+.tailscale/
+
+# --- Logs ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
